@@ -26,7 +26,7 @@ const UserCard = ({ data }: { data: AllUser }) => {
   return (
     <Card>
       <CardContent className="p-2">
-        Test user
+        
       </CardContent>
     </Card>
   );
