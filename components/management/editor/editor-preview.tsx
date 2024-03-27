@@ -16,14 +16,18 @@ import Image from "next/image";
 import { useSession } from "next-auth/react";
 
 const uploadImage = async (
-  file?: Blob,
+  file?: File,
   filename?: string,
 ): Promise<NextResponse> => {
   if (!file)
     return NextResponse.json({ status: 404, message: "no file available" });
-  const res = await fetch(`${BASE_API_URL}/api/upload?filename=${filename}`, {
-    cache: "no-store",
+  const res = await fetch(`/api/upload?filename=${filename}`, {
     method: "POST",
+    headers: {
+      "content-type":
+        (file == null ? void 0 : file.type) || "application/octet-stream",
+      "x-vercel-filename": (file == null ? void 0 : file.name) || "image.png",
+    },
     body: file,
   });
 
@@ -39,7 +43,7 @@ const EditorPreview = ({
   type: "edit" | "add";
   metaData: any;
   handleReset: () => void;
-  media: Blob | undefined;
+  media: File | undefined;
 }) => {
   const session = useSession();
   const user = session?.data?.user;
@@ -76,12 +80,11 @@ const EditorPreview = ({
       const res = await uploadImage(media);
       if (res.status === 404) {
         alert("failed to upload image");
-        setIsThumbnailLoading(false);
       }
 
       if (res.status === 200) _thread = { ...thread, thumbnail: res.url };
-      setIsThumbnailLoading(false);
     }
+    setIsThumbnailLoading(false);
 
     const res = await fetch(`${BASE_API_URL}/api/thread`, {
       method: "POST",

@@ -28,7 +28,7 @@ const ThreadMetaData = ({
 }) => {
   const [metaData, setMetaData] = useLocalStorage<any>("thread_metadata", {});
   const [isOpen, setIsOpen] = useState<boolean>(true);
-  const [media, setMedia] = useState<Blob>();
+  const [media, setMedia] = useState<File>();
 
   const [title, setTitle] = useState<string>(metaData.title || "");
   const [slug, setSlug] = useState<string>(metaData.slug || "");
