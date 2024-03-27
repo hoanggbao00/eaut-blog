@@ -16,7 +16,13 @@ const UserPage = async () => {
   return (
     <>
       <RouteTitle text="User Management" />
-
+      <SectionCard className="text-center">
+        <div className="mt-5 grid grid-cols-1 gap-5 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4">
+          <Suspense>
+            {data && data.map((user) => <UserCard key={user.id} data={user} />)}
+          </Suspense>
+        </div>
+      </SectionCard>
     </>
   );
 };
