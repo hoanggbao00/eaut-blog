@@ -10,7 +10,7 @@ export const authOptions: NextAuthOptions = {
   },
   adapter: PrismaAdapter(prisma) as Adapter,
   pages: {
-    signIn: '/'
+    signIn: "/?login=open",
   },
   providers: [
     GoogleProvider({
