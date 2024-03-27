@@ -34,7 +34,7 @@ const CommentVote = ({
       method: "PUT",
       body: JSON.stringify(session.data.user?.email),
     });
-    mutate();
+    if(res.status === 200) mutate();
   };
 
   return (

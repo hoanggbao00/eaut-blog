@@ -14,7 +14,7 @@ const HeaderLogo = () => {
         />
       </div>
       <Separator orientation="vertical" className="w-[2px] bg-primary/30" />
-      <div className="text-xl font-semibold text-primary">
+      <div className="text-xl font-semibold text-primary hidden md:block">
         <h2>EAUT</h2>
         <h2>Khoa Công nghệ thông tin</h2>
       </div>

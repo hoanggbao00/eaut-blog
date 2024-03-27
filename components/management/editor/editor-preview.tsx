@@ -126,6 +126,10 @@ const EditorPreview = ({
       thumbnail: metaData.thumbnail,
       userEmail: user?.email,
     };
+
+    if(!thread.slug || !thread.title || !thread.catSlug || !thread.userEmail) return alert ('Thiếu một trong các ô nội dung')
+
+
     // type = edit
     if (type === "edit") {
       const res = handleEdit(thread);
@@ -139,8 +143,6 @@ const EditorPreview = ({
     }
 
     handleReset();
-    router.push("threads");
-    router.refresh();
   };
 
   return metaData ? (
