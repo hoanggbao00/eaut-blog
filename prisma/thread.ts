@@ -27,6 +27,7 @@ export const getAll = async (
         select: {
           title: true,
           color: true,
+          slug: true,
         },
       },
       user: {

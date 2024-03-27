@@ -4,6 +4,8 @@ import { Thread } from '@/type';
 import Link from 'next/link';
 
 const SideItem = async ({ data }: { data: Thread }) => {
+	console.log(data.cat);
+	
 	return (
 		data && (
 			<div className='flex flex-col gap-1'>
