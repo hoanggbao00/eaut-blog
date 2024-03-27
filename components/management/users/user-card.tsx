@@ -5,12 +5,16 @@ import { AllUser } from "@/type";
 import { File } from "lucide-react";
 import RoleTag from "./role-tag";
 import { Button } from "@/components/ui/button";
-import { useSession } from "next-auth/react";
 
-const UserCard = ({ data }: { data: AllUser }) => {
-  const session = useSession();
-  const user: any = session?.data?.user;
-
+const UserCard = ({
+  data,
+  router,
+  userSession,
+}: {
+  data: AllUser;
+  router: any;
+  userSession: AllUser;
+}) => {
   const handleDelete = async () => {
     //TODO: DELETE Logic here
 
@@ -18,9 +22,8 @@ const UserCard = ({ data }: { data: AllUser }) => {
     return data;
   };
 
-  const handleEditRole = async () => {
-    //TODO: EDIT Role Logic here
-    alert("TEST MESSAGE: Role changed");
+  const handleOpenDialog = async () => {
+    router.replace(`?user=${data.id}`);
   };
 
   return (
@@ -65,12 +68,15 @@ const UserCard = ({ data }: { data: AllUser }) => {
           </div>
         </div>
         <div className="mt-2 flex items-center justify-end gap-2">
-          {(user?.role === "MODERATOR" || user?.role === "ADMIN") && (
-            <Button variant="outline" onClick={handleEditRole}>
-              Phân quyền
-            </Button>
-          )}
-          {user?.role === "ADMIN" && (
+          {userSession &&
+            (userSession.role === "MODERATOR" ||
+              userSession.role === "ADMIN" ||
+              userSession.id === data.id) && (
+              <Button variant="outline" onClick={handleOpenDialog}>
+                Chỉnh sửa
+              </Button>
+            )}
+          {userSession && userSession.role === "ADMIN" && (
             <Button variant="destructive" onClick={handleDelete}>
               Xóa
             </Button>

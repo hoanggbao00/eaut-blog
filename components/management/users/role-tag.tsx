@@ -1,6 +1,7 @@
+import { cn } from "@/lib/utils";
 import { Role } from "@/type";
 
-const RoleTag = ({ role }: { role: Role }) => {
+const RoleTag = ({ role, className }: { role: Role; className?: string }) => {
   const roleClass = {
     ADMIN: "tag-red",
     MODERATOR: "tag-purple",
@@ -11,7 +12,10 @@ const RoleTag = ({ role }: { role: Role }) => {
 
   return (
     <span
-      className={`tag ${roleClass[role]} inline-block rounded-full p-1 py-0 text-xs`}
+      className={cn(
+        `tag ${roleClass[role]} inline-block rounded-full p-1 py-0 text-xs`,
+        className,
+      )}
     >
       {role}
     </span>

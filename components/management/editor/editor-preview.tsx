@@ -131,7 +131,7 @@ const EditorPreview = ({
     setIsActionLoading(true);
     // type = edit
     if (type === "edit") {
-      const res = handleEdit(thread);
+      const res = await handleEdit(thread);
       if (!res) return;
     }
 
