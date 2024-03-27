@@ -24,7 +24,7 @@ const UserCard = ({
 
   const handleOpenDialog = async () => {
     router.replace(`?user=${data.id}`);
-  };
+  };  
 
   return (
     <Card>

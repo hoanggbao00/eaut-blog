@@ -49,8 +49,7 @@ const UserDialog = ({
 
     setIsAction(false);
     if (res.status === 200) {
-      alert("Hoàn thành");
-      return router.refresh();
+      return alert("Hoàn thành");
     }
     alert("Lỗi");
   };
