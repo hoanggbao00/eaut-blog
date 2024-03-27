@@ -65,6 +65,8 @@ const EditorPreview = ({
 
   // Add new thread
   const handleAdd = async (thread: any) => {
+    setIsActionLoading(true);
+
     // check thumbnail first
     let _thread = { ...thread };
 
@@ -82,7 +84,6 @@ const EditorPreview = ({
       setIsThumbnailLoading(false);
     }
 
-    setIsActionLoading(true);
     const res = await fetch(`${BASE_API_URL}/api/thread`, {
       method: "POST",
       body: JSON.stringify(_thread),
@@ -127,8 +128,8 @@ const EditorPreview = ({
       userEmail: user?.email,
     };
 
-    if(!thread.slug || !thread.title || !thread.catSlug || !thread.userEmail) return alert ('Thiếu một trong các ô nội dung')
-
+    if (!thread.slug || !thread.title || !thread.catSlug || !thread.userEmail)
+      return alert("Thiếu một trong các ô nội dung");
 
     // type = edit
     if (type === "edit") {
