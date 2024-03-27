@@ -12,4 +12,4 @@ const prisma = globalThis.prismaGlobal ?? prismaClientSingleton();
 
 export default prisma;
 
-if (process.env.VERCEL_ENV !== 'production') globalThis.prismaGlobal = prisma;
+if (process.env.NEXT_PUBLIC_VERCEL_ENV !== 'production') globalThis.prismaGlobal = prisma;
