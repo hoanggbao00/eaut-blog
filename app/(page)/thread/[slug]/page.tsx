@@ -40,7 +40,7 @@ const SingleThread = async ({ params }: { params: { slug: string } }) => {
 
   return (
     data && (
-      <article className="container pb-6">
+      <article className="sm:container pb-6">
         <Card className="bg-background">
           <CardContent className="flex gap-5 py-6">
             <div className="flex flex-[3] flex-col gap-5">
