@@ -29,7 +29,7 @@ const HomeStatus = () => {
               Hi <b>{user.name}</b>, How{"'"}s your day?
             </p>
           </div>
-          <div className="flex gap-1">
+          <div className="flex flex-col md:flex-row gap-1">
             <Link href="/management">
               <Button variant="outline">Management</Button>
             </Link>

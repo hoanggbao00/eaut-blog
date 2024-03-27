@@ -12,7 +12,7 @@ const fetcher = async (url: string) => {
 
   if (!res.ok) throw new Error("Error fetching");
   return data;
-}
+};
 
 const ThreadVote = ({
   commentCount,
@@ -47,7 +47,7 @@ const ThreadVote = ({
       <div className="flex border-y-2 border-border bg-foreground/5 text-foreground/50">
         <button
           className={cn(
-            "flex flex-1 items-center justify-center gap-2 py-3 hover:bg-foreground/20 hover:text-primary",
+            "flex flex-1 flex-col items-center justify-center gap-2 py-3 hover:bg-foreground/20 hover:text-primary md:flex-row",
             { "text-primary": foundVote?.type === "UPVOTE" },
           )}
           onClick={() => handleVote("UPVOTE")}
@@ -57,7 +57,7 @@ const ThreadVote = ({
         </button>
         <button
           className={cn(
-            "flex flex-1 items-center justify-center gap-2 py-3 hover:bg-foreground/20 hover:text-primary",
+            "flex flex-1 flex-col items-center justify-center gap-2 py-3 hover:bg-foreground/20 hover:text-primary md:flex-row",
             { "text-primary": foundVote?.type === "DOWNVOTE" },
           )}
           onClick={() => handleVote("DOWNVOTE")}
@@ -65,7 +65,10 @@ const ThreadVote = ({
           <ArrowBigDown size={32} />
           <p>{data?.count.DOWNVOTE || 0} Downvote</p>
         </button>
-        <Link href={'#comments'} className="flex flex-1 items-center justify-center gap-2 py-3 hover:bg-foreground/20 hover:text-foreground">
+        <Link
+          href={"#comments"}
+          className="flex flex-1 flex-col items-center justify-center gap-2 py-3 hover:bg-foreground/20 hover:text-foreground md:flex-row"
+        >
           <MessageCircle size={32} />
           <p>{commentCount} phản hồi</p>
         </Link>
