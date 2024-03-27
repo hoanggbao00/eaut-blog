@@ -12,7 +12,7 @@ const UserCard = ({ data }: { data: AllUser }) => {
   const user: any = session?.data?.user;
 
   const handleDelete = async () => {
-    //TODO: DELETTE Logic here
+    //TODO: DELETE Logic here
 
     alert("TEST MESSAGE: User deleted");
     return data;
