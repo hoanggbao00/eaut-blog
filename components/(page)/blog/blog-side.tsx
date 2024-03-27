@@ -11,14 +11,7 @@ import { Category, Thread } from "@/type";
 import { BASE_API_URL } from "@/lib/constants";
 import { Separator } from "@/components/ui/separator";
 
-const BlogSide = async () => {
-  const catRes = await fetch(`${BASE_API_URL}/api/category`, {
-    next: {
-      revalidate: 300,
-    },
-  });
-  const categories: Category[] = await catRes.json();
-
+const BlogSide = async ({categories}: {categories: Category[]}) => {
   const threadRes = await fetch(`${BASE_API_URL}/api/thread`, {
     next: {
       revalidate: 60,

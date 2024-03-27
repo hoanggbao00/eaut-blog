@@ -27,7 +27,7 @@ const ThreadCard = ({
       >
         <Link
           href={`/thread/${thread.slug}`}
-          className={cn(`relative aspect-[4/3] overflow-hidden rounded-lg`, {
+          className={cn(`relative aspect-[4/3] overflow-hidden rounded-lg hidden sm:block`, {
             "aspect-video flex-1": orientation === "horizontal",
           })}
         >

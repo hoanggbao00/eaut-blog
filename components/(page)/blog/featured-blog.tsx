@@ -10,10 +10,9 @@ import { BASE_API_URL } from "@/lib/constants";
 import { useMemo } from "react";
 
 const FeaturedPostBlog = async ({ data }: { data: Thread }) => {
-
   const content = useMemo(() => {
-    return formatContent(data.content)
-  }, [data.content])
+    return formatContent(data.content);
+  }, [data.content]);
 
   return (
     <Card className="border-none">
@@ -21,7 +20,7 @@ const FeaturedPostBlog = async ({ data }: { data: Thread }) => {
         <div className="flex flex-col gap-10 md:flex-row">
           <Link
             href={`${BASE_API_URL}/thread/${data.slug}`}
-            className="relative aspect-video flex-1 cursor-pointer overflow-hidden rounded-lg"
+            className="sm:w-unset relative aspect-video w-full flex-1 cursor-pointer overflow-hidden rounded-lg"
           >
             <Image
               src={
@@ -36,9 +35,8 @@ const FeaturedPostBlog = async ({ data }: { data: Thread }) => {
           </Link>
           <div className="flex flex-1 flex-col gap-3">
             <div>
-              <CategoryTag data={{...data.cat, slug: data.catSlug}} />
+              <CategoryTag data={{ ...data.cat, slug: data.catSlug }} />
             </div>
-
             <Link href={`${BASE_API_URL}/thread/${data.slug}`}>
               <Title className="pointer cursor-pointer hover:underline">
                 {data.title}

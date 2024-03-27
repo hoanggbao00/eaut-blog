@@ -42,14 +42,17 @@ const CommentVote = ({
       <div className="absolute -bottom-3 right-0 flex items-center justify-center gap-x-2">
         <Tooltip>
           <TooltipTrigger asChild>
-            <button
-              onClick={() => handleVote("UPVOTE")}
-              className={cn("text-gray-500 hover:text-primary", {
-                "text-primary": foundVote?.type === "UPVOTE",
-              })}
-            >
-              <ArrowBigUp size={28} />
-            </button>
+            <div>
+              <button
+                onClick={() => handleVote("UPVOTE")}
+                className={cn("text-gray-500 hover:text-primary", {
+                  "text-primary": foundVote?.type === "UPVOTE",
+                })}
+              >
+                <ArrowBigUp size={28} />
+              </button>
+              {upVote.length !== 0 && upVote.length}
+            </div>
           </TooltipTrigger>
           <TooltipContent>
             <p
@@ -68,14 +71,17 @@ const CommentVote = ({
         </Tooltip>
         <Tooltip>
           <TooltipTrigger asChild>
-            <button
-              onClick={() => handleVote("DOWNVOTE")}
-              className={cn("text-gray-500 hover:text-primary", {
-                "text-primary": foundVote?.type === "DOWNVOTE",
-              })}
-            >
-              <ArrowBigDown size={28} />
-            </button>
+            <div>
+              <button
+                onClick={() => handleVote("DOWNVOTE")}
+                className={cn("text-gray-500 hover:text-primary", {
+                  "text-primary": foundVote?.type === "DOWNVOTE",
+                })}
+              >
+                <ArrowBigDown size={28} />
+              </button>
+              {downVote.length !== 0 && downVote.length}
+            </div>
           </TooltipTrigger>
           <TooltipContent>
             <p
