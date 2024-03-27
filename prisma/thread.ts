@@ -178,7 +178,6 @@ export const voteThread = async (
       userEmail: userEmail,
     },
   });
-  console.log(found.count);
   
   if (found.count !== 0) return found;
 

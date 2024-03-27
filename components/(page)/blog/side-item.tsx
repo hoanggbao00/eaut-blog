@@ -3,9 +3,7 @@ import CategoryTag from '@/components/shared/category-tag';
 import { Thread } from '@/type';
 import Link from 'next/link';
 
-const SideItem = async ({ data }: { data: Thread }) => {
-	console.log(data.cat);
-	
+const SideItem = async ({ data }: { data: Thread }) => {	
 	return (
 		data && (
 			<div className='flex flex-col gap-1'>
