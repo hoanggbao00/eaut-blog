@@ -5,6 +5,7 @@ import { AllUser } from "@/type";
 import { File } from "lucide-react";
 import RoleTag from "./role-tag";
 import { Button } from "@/components/ui/button";
+import { User } from "next-auth";
 
 const UserCard = ({
   data,
@@ -13,7 +14,7 @@ const UserCard = ({
 }: {
   data: AllUser;
   router: any;
-  userSession: AllUser;
+  userSession: any;
 }) => {
   const handleDelete = async () => {
     //TODO: DELETE Logic here

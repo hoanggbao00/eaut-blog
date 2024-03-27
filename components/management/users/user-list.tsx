@@ -5,12 +5,13 @@ import { useRouter } from "next/navigation";
 import UserCard from "./user-card";
 import UserDialog from "./user-dialog";
 import { useSession } from "next-auth/react";
+import { User } from "next-auth";
 
 const UserList = ({ data, userId }: { data: AllUser[]; userId: string }) => {
   const router = useRouter();
   const dataFound = data.find((r) => r.id === userId);
   const session = useSession();
-  const userSession = session?.data?.user as AllUser;
+  const userSession = session?.data?.user as User;
 
   const handleOpen = () => {
     if (userId) router.replace("users");
@@ -30,11 +31,7 @@ const UserList = ({ data, userId }: { data: AllUser[]; userId: string }) => {
           ))}
       </div>
       {userId && dataFound && (
-        <UserDialog
-          data={dataFound}
-          userSession={userSession}
-          router={router}
-        />
+        <UserDialog data={dataFound} userSession={userSession} />
       )}
     </Dialog>
   );

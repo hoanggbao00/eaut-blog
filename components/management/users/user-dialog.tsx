@@ -24,18 +24,16 @@ import {
 const UserDialog = ({
   data,
   userSession,
-  router,
 }: {
   data: AllUser;
-  userSession: AllUser;
-  router: any;
+  userSession: any;
 }) => {
   const [name, setName] = useState(data.name);
   const [role, setRole] = useState(data.role);
   const [isAction, setIsAction] = useState(false);
 
   const handleSave = async () => {
-    if(!name) return alert('Tên trống !!')
+    if (!name) return alert("Tên trống !!");
     setIsAction(true);
     const newData = {
       name: name,
