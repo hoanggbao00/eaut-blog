@@ -78,7 +78,7 @@ const CommentSection = ({ threadSlug }: { threadSlug: string }) => {
         <div className="space-y-5">
           {isLoading
             ? "loading..."
-            : data?.map((item) => <CommentItem key={item.id} item={item} mutate={mutate}/>)}
+            : data ? data?.map((item) => <CommentItem key={item.id} item={item} mutate={mutate}/>) : 'There is no comment for this thread'}
         </div>
       </div>
     </section>

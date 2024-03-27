@@ -74,13 +74,12 @@ const EditorPreview = ({
     if (check) {
       setIsThumbnailLoading(true);
       const res = await uploadImage(media);
-      if (!res) {
+      if (res.status === 404) {
         alert("failed to upload image");
         setIsThumbnailLoading(false);
-        return;
       }
 
-      _thread = { ...thread, thumbnail: res.url };
+      if (res.status === 200) _thread = { ...thread, thumbnail: res.url };
       setIsThumbnailLoading(false);
     }
 
