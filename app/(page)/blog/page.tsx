@@ -6,8 +6,6 @@ import RecentThreads from "@/components/(page)/homepage/recent-threads";
 import CategoryTag from "@/components/shared/category-tag";
 import { BASE_API_URL } from "@/lib/constants";
 import { Category } from "@/type";
-// import FeaturedPostBlog from "@/components/page/blog/featured-post";
-// import { getCategoryBySlug } from "@/lib/db/category";
 import { Metadata } from "next";
 import Link from "next/link";
 
@@ -58,7 +56,7 @@ const BlogPage = async ({ searchParams }: Props) => {
   return (
     <div className="container flex flex-col gap-5 pb-3 pt-2">
       {catData && (
-        <div className="flex flex-wrap items-center gap-2 gap-y-4 pb-2 -mx-5 md:mx-0 md:hidden">
+        <div className="-mx-5 flex flex-wrap items-center gap-2 gap-y-4 pb-2 md:mx-0 md:hidden">
           <Link href={"../"} className="font-semibold text-primary underline">
             Home /
           </Link>
@@ -77,7 +75,7 @@ const BlogPage = async ({ searchParams }: Props) => {
             data={data}
           />
         </div>
-        <BlogSide categories={catData} />
+        <BlogSide />
       </div>
     </div>
   );

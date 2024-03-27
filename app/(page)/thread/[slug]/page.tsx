@@ -10,7 +10,6 @@ import { formatContent, formatDate } from "@/lib/utils";
 import { SingleThread as SingleThreadType } from "@/type";
 import { Bell, Bookmark } from "lucide-react";
 import { Metadata } from "next";
-import { Suspense } from "react";
 
 type Props = {
   params: { slug: string };
@@ -40,7 +39,7 @@ const SingleThread = async ({ params }: { params: { slug: string } }) => {
 
   return (
     data && (
-      <article className="sm:container pb-6">
+      <article className="pb-6 sm:container">
         <Card className="bg-background">
           <CardContent className="flex gap-5 py-6">
             <div className="flex flex-[3] flex-col gap-5">
