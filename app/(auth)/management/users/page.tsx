@@ -5,6 +5,8 @@ import { BASE_API_URL } from "@/lib/constants";
 import { AllUser } from "@/type";
 import { Suspense } from "react";
 
+export const runtime = "edge";
+
 const UserPage = async () => {
   const res = await fetch(`${BASE_API_URL}/api/user`, {
     cache: "no-store",
