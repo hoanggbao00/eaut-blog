@@ -5,7 +5,6 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { BASE_API_URL } from "@/lib/constants";
 import { cn } from "@/lib/utils";
 import { CommentVote as VoteType } from "@/type";
 import { ArrowBigDown, ArrowBigUp } from "lucide-react";
@@ -31,7 +30,7 @@ const CommentVote = ({
   const handleVote = async (type: "UPVOTE" | "DOWNVOTE") => {
     if (!session.data) return;
 
-    const res = await fetch(`${BASE_API_URL}/api/comment/${commentId}?type=${type}`, {
+    const res = await fetch(`/api/comment/${commentId}?type=${type}`, {
       method: "PUT",
       body: JSON.stringify(session.data.user?.email),
     });
