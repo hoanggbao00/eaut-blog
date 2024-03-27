@@ -9,15 +9,22 @@ import { Suspense } from "react";
 
 export const runtime = "edge";
 
-const HomePage = async () => {
-  const res = await fetch(`${BASE_API_URL}/api/thread`, {
+const HomePage = async ({
+  searchParams,
+}: {
+  searchParams: { page: number };
+}) => {
+  const currentPage = Number(searchParams.page) || 1
+
+  const res = await fetch(`${BASE_API_URL}/api/thread?page=${currentPage}`, {
     method: "GET",
     next: {
       revalidate: 60,
     },
   });
 
-  const data = await res.json();
+  const { total, data } = await res.json();
+  const totalPage = Math.floor(total / 6) + 1;
 
   return (
     <div className="container flex flex-col gap-y-10">
@@ -33,7 +40,7 @@ const HomePage = async () => {
       <CategorySection />
       {data && (
         <>
-          <RecentThreads data={data} />
+          <RecentThreads data={data} currentPage={currentPage} totalPage={totalPage}/>
           <Suspense>
             <PopularThreads data={data} />
           </Suspense>

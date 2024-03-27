@@ -95,21 +95,17 @@ const EditorPreview = ({
       return alert(`Đã tồn tại bài viết có slug là ${thread.slug}`);
     if (res.status === 404) return alert("Failed to create thread");
 
-    setIsActionLoading(false);
     return data;
   };
 
   //TODO: Edit thread
   const handleEdit = async (thread: any) => {
-    return alert("comming soon");
-    const data = await fetch(`${BASE_API_URL}/api/thread/${metaData.id}`, {
+    const data = await fetch(`${BASE_API_URL}/api/thread/${metaData.slug}`, {
       method: "PUT",
       body: JSON.stringify(thread),
     });
     const res = await data.json();
     if (!res) alert("failed to edit thread");
-    alert("Edit successfully");
-
     return data;
   };
 
@@ -132,17 +128,17 @@ const EditorPreview = ({
     if (!thread.slug || !thread.title || !thread.catSlug || !thread.userEmail)
       return alert("Thiếu một trong các ô nội dung");
 
+    setIsActionLoading(true);
     // type = edit
     if (type === "edit") {
       const res = handleEdit(thread);
       if (!res) return;
     }
 
-    // type = new
-    // if (!type || type === "add") {
-    //   const res = await handleAdd(thread);
-    //   if (!res) return;
-    // }
+    if (!type || type === "add") {
+      const res = await handleAdd(thread);
+      if (!res) return;
+    }
 
     const redirectCheck = confirm(
       `Successfully ${type === "edit" ? "Edit" : "added"} thread!\nDo you want to direct to \`Threads Management\`?`,
@@ -154,6 +150,8 @@ const EditorPreview = ({
       handleReset();
       router.replace("/management/editor");
     }
+    setIsActionLoading(false);
+
   };
 
   return metaData ? (

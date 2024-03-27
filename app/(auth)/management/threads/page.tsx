@@ -14,9 +14,11 @@ export const metadata: Metadata = {
 const AllThreadPage = async ({
   searchParams,
 }: {
-  searchParams: { slug: string };
+  searchParams: { slug: string, page: number };
 }) => {
   const { slug } = searchParams || "";
+  const page = Number(searchParams.page) || 1;
+
   return (
     <AlertDialog>
       <RouteTitle text="My Thread" />
@@ -27,7 +29,7 @@ const AllThreadPage = async ({
             <Link href={"editor?type=add"}>New Thread</Link>
           </Button>
         </div>
-        <ListThread slug={slug} />
+        <ListThread slug={slug} currentPage={page}/>
       </SectionCard>
     </AlertDialog>
   );

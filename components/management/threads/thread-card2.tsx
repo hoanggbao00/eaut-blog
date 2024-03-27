@@ -2,7 +2,7 @@
 import { Thread } from "@/type";
 import Image from "next/image";
 import { formatDate } from "@/lib/utils";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { DialogTrigger } from "@/components/ui/dialog";
 import { Card, CardContent } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
@@ -15,9 +15,11 @@ const ThreadCard2 = ({
 }) => {
   const { slug } = thread;
   const router = useRouter();
+  const params = useSearchParams()
 
   const handleClick = () => {
-    router.replace(`?slug=${slug}`);
+    const page = params.get('page') || 1
+    router.replace(`?slug=${slug}&page=${page}`,);
   };
 
   return (

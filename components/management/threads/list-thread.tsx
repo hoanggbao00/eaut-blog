@@ -8,6 +8,7 @@ import { BASE_API_URL } from "@/lib/constants";
 import ThreadCard2 from "./thread-card2";
 import ConfirmDelete from "./confirm-delete";
 import { useState } from "react";
+import ClientPagination from "@/components/(page)/homepage/client-pagination";
 
 const fetcher = async (url: string) => {
   const res = await fetch(url);
@@ -15,20 +16,29 @@ const fetcher = async (url: string) => {
 
   if (!res.ok) throw new Error("Error fetching");
   return data;
-}
+};
 
-const ListThread = ({ slug }: { slug: string }) => {
-  const { data, mutate, isLoading } = useSWR<Thread[]>(
-    `${BASE_API_URL}/api/thread?perPage=12`,
+const ListThread = ({
+  slug,
+  currentPage,
+}: {
+  slug: string;
+  currentPage: number;
+}) => {
+  const { data, mutate, isLoading } = useSWR<{ total: number; data: Thread[] }>(
+    `${BASE_API_URL}/api/thread?perPage=12&page=${currentPage}`,
     fetcher,
   );
+
+  const threads = data && data.data;
+  const totalPage = data && Math.round(data.total / 12) + 1 || 1;
   const [open, setOpen] = useState<boolean>(!!slug);
   const router = useRouter();
   const pathname = usePathname();
-  const find = data && data.find((t) => t.slug === slug);
+  const find = threads && threads.find((t) => t.slug === slug);
 
   const handleOpen = () => {
-    if (slug) router.replace(pathname);
+    if (slug) router.replace(`${pathname}?page=${currentPage}`);
 
     setOpen(!open);
   };
@@ -37,11 +47,14 @@ const ListThread = ({ slug }: { slug: string }) => {
     <>
       <Dialog open={open} onOpenChange={handleOpen}>
         {!isLoading ? (
-          <div className="grid grid-cols-2 gap-5 md:grid-cols-3 lg:grid-cols-4">
-            {data &&
-              data.map((thread) => (
-                <ThreadCard2 key={thread.id} thread={thread} />
-              ))}
+          <div>
+            <ClientPagination totalPage={totalPage} currentPage={currentPage} />
+            <div className="grid grid-cols-2 gap-5 md:grid-cols-3 lg:grid-cols-4 pt-4">
+              {threads &&
+                threads.map((thread) => (
+                  <ThreadCard2 key={thread.id} thread={thread} />
+                ))}
+            </div>
           </div>
         ) : (
           "Loading content..."

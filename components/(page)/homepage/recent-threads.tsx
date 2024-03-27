@@ -4,15 +4,21 @@ import { twMerge } from "tailwind-merge";
 import ThreadCard from "@/components/shared/thread-card";
 import Link from "next/link";
 import { Thread } from "@/type";
+import ClientPagination from "./client-pagination";
 
 const RecentThreads = async ({
   className,
   itemOrientation,
   data,
+  totalPage,
+  currentPage,
+
 }: {
   className?: string;
   itemOrientation?: "horizontal" | "vertical";
   data?: Thread[];
+  totalPage: number;
+  currentPage: number;
 }) => {
   return (
     <section className="flex flex-col gap-2">
@@ -38,7 +44,7 @@ const RecentThreads = async ({
             ))
           : "There is nothing in this category"}
       </div>
-      TODO: Add Pagination here
+      <ClientPagination totalPage={totalPage} currentPage={currentPage}/>
     </section>
   );
 };

@@ -94,6 +94,7 @@ const ThreadMetaData = ({
               categories={categories}
               handleInputs={handleInputs}
               setCategory={setCategory}
+              type={type}
             />
           </CollapsibleContent>
           <CollapsibleTrigger className="absolute -bottom-3 left-1/2 -translate-x-1/2">

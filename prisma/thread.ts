@@ -1,4 +1,5 @@
 import prisma from "@/lib/connect";
+import { Prisma } from "@prisma/client";
 
 /**
  * getAll
@@ -16,7 +17,7 @@ export const getAll = async (
   catSlug: string,
   userEmail: string,
 ) => {
-  const data = await prisma.thread.findMany({
+  const query: Prisma.ThreadFindManyArgs = {
     where: {
       ...(catSlug && { catSlug }),
       ...(userEmail && { userEmail }),
@@ -46,9 +47,22 @@ export const getAll = async (
     orderBy: {
       createdAt: "desc",
     },
-  });
+  }
 
-  return data;
+  const [total, data] = await prisma.$transaction([
+    prisma.thread.count({
+      where: {
+        ...(catSlug && { catSlug }),
+        ...(userEmail && { userEmail }),
+      },
+    }),
+    prisma.thread.findMany(query),
+  ])
+
+  return {
+    total: total,
+    data: data,
+  };
 };
 
 export const getOne = async (slug: string) => {

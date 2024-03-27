@@ -44,14 +44,16 @@ const BlogPage = async ({ searchParams }: Props) => {
   const catData: Category[] = await catRes.json();
 
   const cat = searchParams.cat || "";
+  const page = Number(searchParams.page) || 1;
   const res = await fetch(
-    `${BASE_API_URL}/api/thread${cat ? "?catSlug=" + cat : ""}`,
+    `${BASE_API_URL}/api/thread?catSlug=${cat}&page=${page}`,
     {
       method: "GET",
       cache: "no-store",
     },
   );
-  const data = await res.json();
+  const { total, data } = await res.json();
+  const totalPage = Math.floor(total / 6) + 1;
 
   return (
     <div className="container flex flex-col gap-5 pb-3 pt-2">
@@ -73,6 +75,8 @@ const BlogPage = async ({ searchParams }: Props) => {
             className="flex flex-col gap-0 md:gap-0"
             itemOrientation="horizontal"
             data={data}
+            totalPage={totalPage}
+            currentPage={page}
           />
         </div>
         <BlogSide />

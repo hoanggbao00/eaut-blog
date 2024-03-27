@@ -30,7 +30,7 @@ export const PUT = async (
   
   try {
     const data = await editOne(slug, body);
-    return NextResponse.json(data, { status: 200, statusText: "OK" });
+    return NextResponse.json({}, { status: 200, statusText: "OK" });
   } catch (err) {
     console.log(err);
     return NextResponse.json(err, { status: 404 });

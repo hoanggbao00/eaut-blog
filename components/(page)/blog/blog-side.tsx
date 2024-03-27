@@ -25,7 +25,7 @@ const BlogSide = async () => {
       revalidate: 60,
     },
   });
-  const threads: Thread[] = await threadRes.json();
+  const { data }: { data: Thread[] } = await threadRes.json();
 
   return (
     <aside className="hidden flex-1 flex-col gap-3 md:flex">
@@ -54,7 +54,7 @@ const BlogSide = async () => {
         </CardHeader>
         <CardContent>
           <div className="flex flex-col gap-4">
-            {threads.map((thread) => (
+            {data.map((thread) => (
               <SideItem key={thread.slug} data={thread} />
             ))}
           </div>

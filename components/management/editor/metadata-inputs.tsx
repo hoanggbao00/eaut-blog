@@ -13,6 +13,7 @@ const MetadataInputs = ({
   handleInputs,
   setCategory,
   thumbnail,
+  type
 }: {
   categories: Category[];
   title: string;
@@ -21,6 +22,7 @@ const MetadataInputs = ({
   category: string;
   setCategory: (e: any) => void;
   thumbnail: string;
+  type: "edit" | "add";
 }) => {
 
   return (
@@ -56,6 +58,7 @@ const MetadataInputs = ({
           placeholder="your slug here"
           value={slug}
           onChange={handleInputs}
+          disabled={type === 'edit'}
         />
       </div>
       <div className="flex items-center">
