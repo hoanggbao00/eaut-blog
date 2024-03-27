@@ -26,7 +26,7 @@ const ListThread = ({
   currentPage: number;
 }) => {
   const { data, mutate, isLoading } = useSWR<{ total: number; data: Thread[] }>(
-    `${BASE_API_URL}/api/thread?perPage=12&page=${currentPage}`,
+    `/api/thread?perPage=12&page=${currentPage}`,
     fetcher,
   );
 
