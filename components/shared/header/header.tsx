@@ -28,8 +28,8 @@ const Header = () => {
   }, [params]);
 
   const handleOpenChange = () => {
-    if (open) router.push(pathName);
-    else router.push("?login=open");
+    if (open) router.replace(pathName);
+    else router.replace("?login=open");
     setOpen(!open);
   };
 

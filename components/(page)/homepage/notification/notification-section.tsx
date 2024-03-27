@@ -28,7 +28,7 @@ const NotificationSection = () => {
   }, [searchParams]);
 
   const handleOpenNotification = () => {
-    if (open) router.push(pathname);
+    if (open) router.replace(pathname);
     setOpen(!open);
   };
 

@@ -29,7 +29,7 @@ const NotificationItem = ({
   const router = useRouter();
 
   const handleOpen = () => {
-    router.push(`?notificationId=${data.id}`, { scroll: false });
+    router.replace(`?notificationId=${data.id}`, { scroll: false });
     handleOpenNotification();
   };
 

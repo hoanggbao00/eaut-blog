@@ -1,3 +1,5 @@
+
+
 export type Role = 'ADMIN' | 'MODERATOR' | 'WRITER' | 'USER' | 'NONE';
 
 export type User = {
