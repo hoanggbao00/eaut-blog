@@ -26,19 +26,7 @@ const UserCard = ({ data }: { data: AllUser }) => {
   return (
     <Card>
       <CardContent className="p-2">
-        
-        <div className="mt-2 flex items-center justify-end gap-2">
-          {(user?.role === "MODERATOR" || user?.role === "ADMIN") && (
-            <Button variant="outline" onClick={handleEditRole}>
-              Phân quyền
-            </Button>
-          )}
-          {user?.role === "ADMIN" && (
-            <Button variant="destructive" onClick={handleDelete}>
-              Xóa
-            </Button>
-          )}
-        </div>
+        Test user
       </CardContent>
     </Card>
   );
