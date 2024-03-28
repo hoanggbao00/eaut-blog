@@ -138,7 +138,7 @@ const EditorPreview = ({
 
     //* redirect
     const redirectCheck = confirm(
-      `${type === "edit" ? "Sửa" : "Thêm"} thành công!\nBạn có muốn tới trang \`Quản lý Threads không\`?`,
+      `${type === "edit" ? "Sửa" : "Thêm"} thành công!\nBạn có muốn bay tới trang \`Quản lý Threads\` không?`,
     );
     setIsActionLoading(false);
     if (redirectCheck) {

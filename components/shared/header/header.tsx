@@ -9,6 +9,7 @@ import { ModeToggle } from "@/components/ui/theme-toggle";
 import { Dialog } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import HeaderLogo from "./header-logo";
+import HeaderAccount from "./header-account";
 
 const Header = () => {
   const session = useSession();
@@ -38,18 +39,18 @@ const Header = () => {
       open={open || !!session?.data?.user}
       onOpenChange={handleOpenChange}
     >
-      <div className="container sticky top-0 z-[2] flex h-16 items-center bg-background">
-        <nav className="flex flex-1 justify-between ">
+      <div className="px-3 sticky top-0 z-[2] flex h-16 items-center bg-background sm:container">
+        <nav className="relative flex flex-1 justify-between ">
           <HeaderLogo />
           <div className="flex items-center gap-4">
-            <div className="hidden items-center gap-4 sm:flex">
-              <Links />
-            </div>
-            {session.data ? (
-              <Button onClick={() => signOut()}> Sign out</Button>
-            ) : (
-              <AuthDialog setOpen={handleOpenChange} />
-            )}
+            <Links />
+            <>
+              {session.data ? (
+                <HeaderAccount data={session.data?.user}/>
+              ) : (
+                <AuthDialog setOpen={handleOpenChange} />
+              )}
+            </>
             <ModeToggle />
           </div>
         </nav>

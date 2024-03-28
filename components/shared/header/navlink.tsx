@@ -10,7 +10,7 @@ const NavLink = ({ item }: { item: { path: string; title: string } }) => {
     <Link
       href={item.path}
       className={cn(
-        `flex items-center p-2 text-center font-semibold transition-all hover:scale-105 hover:text-primary`,
+        `flex items-center p-2 text-center font-semibold transition-all hover:scale-105 hover:text-primary text-nowrap`,
         {
           "text-primary": item.path === pathname,
         },

@@ -14,7 +14,7 @@ const HomePage = async ({
 }: {
   searchParams: { page: number };
 }) => {
-  const currentPage = Number(searchParams.page) || 1
+  const currentPage = Number(searchParams.page) || 1;
 
   const res = await fetch(`${BASE_API_URL}/api/thread?page=${currentPage}`, {
     method: "GET",
@@ -27,7 +27,7 @@ const HomePage = async ({
   const totalPage = Math.floor(total / 6) + 1;
 
   return (
-    <div className="container flex flex-col gap-y-10">
+    <div className="flex flex-col gap-y-10 px-3 sm:container">
       <Suspense fallback={"loading status ..."}>
         <HomeStatus />
       </Suspense>
@@ -40,7 +40,11 @@ const HomePage = async ({
       <CategorySection />
       {data && (
         <>
-          <RecentThreads data={data} currentPage={currentPage} totalPage={totalPage}/>
+          <RecentThreads
+            data={data}
+            currentPage={currentPage}
+            totalPage={totalPage}
+          />
           <Suspense>
             <PopularThreads data={data} />
           </Suspense>
