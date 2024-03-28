@@ -10,7 +10,6 @@ import { DialogClose, DialogFooter } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
 import { LoaderCircle } from "lucide-react";
-import { BASE_API_URL } from "@/lib/constants";
 import { NextResponse } from "next/server";
 import Image from "next/image";
 import { useSession } from "next-auth/react";
@@ -69,8 +68,6 @@ const EditorPreview = ({
 
   // Add new thread
   const handleAdd = async (thread: any) => {
-    setIsActionLoading(true);
-
     const res = await fetch(`/api/thread`, {
       method: "POST",
       body: JSON.stringify(thread),
@@ -112,10 +109,11 @@ const EditorPreview = ({
     if (!thread.slug || !thread.title || !thread.catSlug || !thread.userEmail)
       return alert("Thiếu một trong các ô nội dung");
 
-    // check thumbnail first
+    //* check thumbnail first
+    setIsActionLoading(true);
+    setIsThumbnailLoading(true);
     const check = await checkThumbnail();
 
-    setIsThumbnailLoading(true);
     if (check) {
       const res = await uploadImage(media);
       if (res.status === 404) {
@@ -125,8 +123,9 @@ const EditorPreview = ({
       if (res?.url) thread = { ...thread, thumbnail: res.url };
     }
     setIsThumbnailLoading(false);
+    //* Done check thumbnail
 
-    setIsActionLoading(true);
+    //* handle type editor
     if (type === "edit") {
       const res = await handleEdit(thread);
       if (!res) return;
@@ -137,9 +136,11 @@ const EditorPreview = ({
       if (!res) return;
     }
 
+    //* redirect
     const redirectCheck = confirm(
-      `Successfully ${type === "edit" ? "Edit" : "added"} thread!\nDo you want to direct to \`Threads Management\`?`,
+      `${type === "edit" ? "Sửa" : "Thêm"} thành công!\nBạn có muốn tới trang \`Quản lý Threads không\`?`,
     );
+    setIsActionLoading(false);
     if (redirectCheck) {
       handleReset();
       router.push("/management/threads");
@@ -147,7 +148,6 @@ const EditorPreview = ({
       handleReset();
       router.replace("/management/editor");
     }
-    setIsActionLoading(false);
   };
 
   return metaData ? (
