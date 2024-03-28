@@ -71,25 +71,9 @@ const EditorPreview = ({
   const handleAdd = async (thread: any) => {
     setIsActionLoading(true);
 
-    // check thumbnail first
-    let _thread = { ...thread };
-
-    const check = await checkThumbnail();
-
-    if (check) {
-      setIsThumbnailLoading(true);
-      const res = await uploadImage(media);
-      if (res.status === 404) {
-        alert("failed to upload image");
-      }
-
-      if (res?.url) _thread = { ...thread, thumbnail: res.url };
-    }
-    setIsThumbnailLoading(false);
-
     const res = await fetch(`/api/thread`, {
       method: "POST",
-      body: JSON.stringify(_thread),
+      body: JSON.stringify(thread),
     });
     const data = await res.json();
     if (res.statusText === "DUPLICATED")
@@ -99,7 +83,6 @@ const EditorPreview = ({
     return data;
   };
 
-  //TODO: Edit thread
   const handleEdit = async (thread: any) => {
     const res = await fetch(`/api/thread/${metaData.slug}`, {
       method: "PUT",
@@ -117,7 +100,7 @@ const EditorPreview = ({
 
     if (!content || !metaData) return;
 
-    const thread = {
+    let thread = {
       slug: metaData.slug,
       title: metaData.title,
       catSlug: metaData.catSlug,
@@ -128,6 +111,20 @@ const EditorPreview = ({
 
     if (!thread.slug || !thread.title || !thread.catSlug || !thread.userEmail)
       return alert("Thiếu một trong các ô nội dung");
+
+    // check thumbnail first
+    const check = await checkThumbnail();
+
+    setIsThumbnailLoading(true);
+    if (check) {
+      const res = await uploadImage(media);
+      if (res.status === 404) {
+        alert("failed to upload image");
+      }
+
+      if (res?.url) thread = { ...thread, thumbnail: res.url };
+    }
+    setIsThumbnailLoading(false);
 
     setIsActionLoading(true);
     if (type === "edit") {
