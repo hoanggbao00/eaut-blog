@@ -1,6 +1,7 @@
 import BlogSide from "@/components/(page)/blog/blog-side";
 import CommentSection from "@/components/(page)/single-thread/comment-section";
 import ThreadVote from "@/components/(page)/single-thread/thread-vote";
+import CategoryTag from "@/components/shared/category-tag";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Card, CardContent } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
@@ -10,6 +11,8 @@ import { formatContent, formatDate } from "@/lib/utils";
 import { SingleThread as SingleThreadType } from "@/type";
 import { Bell, Bookmark } from "lucide-react";
 import { Metadata } from "next";
+import Image from "next/image";
+import Link from "next/link";
 
 type Props = {
   params: { slug: string };
@@ -41,7 +44,14 @@ const SingleThread = async ({ params }: { params: { slug: string } }) => {
     data && (
       <article className="pb-6 sm:container">
         <Card className="bg-background">
-          <CardContent className="flex gap-5 py-6">
+          <div className="flex items-center gap-1 py-3 pl-6 ">
+            <Link href={"/"} className="underline text-primary">Home</Link>
+            {" / "}
+            <CategoryTag data={data.cat} />
+            {" / "}
+            <p> {data.title}</p>
+          </div>
+          <CardContent className="flex gap-5 pb-6">
             <div className="flex flex-[3] flex-col gap-5">
               <Title className="hover:text-primary md:text-3xl lg:text-4xl">
                 {data.title}
@@ -68,6 +78,19 @@ const SingleThread = async ({ params }: { params: { slug: string } }) => {
                 </div>
               </div>
               <Separator />
+              {data.thumbnail && (
+                <figure className="relative aspect-video w-full">
+                  <Image
+                    src={data.thumbnail}
+                    alt="thumbnail"
+                    fill
+                    className="rounded-lg object-cover"
+                  />
+                  <figcaption aria-disabled aria-hidden>
+                    Hình ảnh
+                  </figcaption>
+                </figure>
+              )}
               <div
                 className="prose max-w-full dark:prose-invert"
                 dangerouslySetInnerHTML={{ __html: html }}

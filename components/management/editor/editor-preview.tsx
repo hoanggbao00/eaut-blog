@@ -75,6 +75,7 @@ const EditorPreview = ({
     let _thread = { ...thread };
 
     const check = await checkThumbnail();
+
     if (check) {
       setIsThumbnailLoading(true);
       const res = await uploadImage(media);
@@ -82,11 +83,11 @@ const EditorPreview = ({
         alert("failed to upload image");
       }
 
-      if (res.status === 200) _thread = { ...thread, thumbnail: res.url };
+      if (res?.url) _thread = { ...thread, thumbnail: res.url };
     }
     setIsThumbnailLoading(false);
 
-    const res = await fetch(`${BASE_API_URL}/api/thread`, {
+    const res = await fetch(`/api/thread`, {
       method: "POST",
       body: JSON.stringify(_thread),
     });
@@ -100,11 +101,11 @@ const EditorPreview = ({
 
   //TODO: Edit thread
   const handleEdit = async (thread: any) => {
-    const data = await fetch(`${BASE_API_URL}/api/thread/${metaData.slug}`, {
+    const res = await fetch(`/api/thread/${metaData.slug}`, {
       method: "PUT",
       body: JSON.stringify(thread),
     });
-    const res = await data.json();
+    const data = await res.json();
     if (!res) alert("failed to edit thread");
     return data;
   };
@@ -129,7 +130,6 @@ const EditorPreview = ({
       return alert("Thiếu một trong các ô nội dung");
 
     setIsActionLoading(true);
-    // type = edit
     if (type === "edit") {
       const res = await handleEdit(thread);
       if (!res) return;
@@ -151,7 +151,6 @@ const EditorPreview = ({
       router.replace("/management/editor");
     }
     setIsActionLoading(false);
-
   };
 
   return metaData ? (

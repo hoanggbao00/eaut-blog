@@ -29,7 +29,7 @@ const CommentSection = ({ threadSlug }: { threadSlug: string }) => {
   const handleSubmit = async () => {
     if (!comment) return alert("Type some thing pls");
 
-    await fetch(`${BASE_API_URL}/api/comment`, {
+    await fetch(`/api/comment`, {
       method: "POST",
       body: JSON.stringify({
         content: comment,

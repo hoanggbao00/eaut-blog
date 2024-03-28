@@ -26,9 +26,10 @@ const ConfirmDelete = ({
   const pathname = usePathname();
 
   const handleDelete = async () => {
-    const res = await fetch(`${BASE_API_URL}/api/thread/${slug}`, {
+    const res = await fetch(`/api/thread/${slug}`, {
       method: "DELETE",
     });
+    
     if (res.status === 404) return alert("Something went wrong");
     alert("Delete Successfully");
     setOpen(false);

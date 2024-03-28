@@ -44,7 +44,7 @@ const ThreadPreview = ({ data }: { data: Thread }) => {
   };
 
   return (
-    <DialogContent className="max-w-[60dvw]">
+    <DialogContent className="max-w-full md:max-w-[60dvw]">
       <DialogHeader className="border-b-2">
         <DialogTitle>{title}</DialogTitle>
         <DialogDescription>({slug})</DialogDescription>
@@ -56,7 +56,7 @@ const ThreadPreview = ({ data }: { data: Thread }) => {
         }}
       ></div>
       <DialogFooter>
-        <Button onClick={handleEdit}>Edit</Button>
+        <Button onClick={handleEdit} className=" mt-2 sm:mt-0">Edit</Button>
         <AlertDialogTrigger asChild>
           <Button
             variant={"destructive"}

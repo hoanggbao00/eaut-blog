@@ -80,6 +80,13 @@ export const getOne = async (slug: string) => {
           image: true,
         },
       },
+      cat: {
+        select: {
+          title: true,
+          color: true,
+          slug: true,
+        }
+      },
       _count: {
         select: {
           comments: true,

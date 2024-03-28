@@ -19,7 +19,7 @@ const FeaturedPostBlog = async ({ data }: { data: Thread }) => {
       <CardContent>
         <div className="flex flex-col gap-10 md:flex-row">
           <Link
-            href={`${BASE_API_URL}/thread/${data.slug}`}
+            href={`/thread/${data.slug}`}
             className="sm:w-unset relative aspect-video w-full flex-1 cursor-pointer overflow-hidden rounded-lg"
           >
             <Image

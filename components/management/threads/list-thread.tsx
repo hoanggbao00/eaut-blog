@@ -4,7 +4,6 @@ import { Thread } from "@/type";
 import ThreadPreview from "./thread-preview";
 import { usePathname, useRouter } from "next/navigation";
 import useSWR from "swr";
-import { BASE_API_URL } from "@/lib/constants";
 import ThreadCard2 from "./thread-card2";
 import ConfirmDelete from "./confirm-delete";
 import { useState } from "react";
@@ -31,7 +30,7 @@ const ListThread = ({
   );
 
   const threads = data && data.data;
-  const totalPage = data && Math.round(data.total / 12) + 1 || 1;
+  const totalPage = (data && Math.floor(data.total / 12) + 1) || 1;
   const [open, setOpen] = useState<boolean>(!!slug);
   const router = useRouter();
   const pathname = usePathname();
@@ -46,19 +45,19 @@ const ListThread = ({
   return (
     <>
       <Dialog open={open} onOpenChange={handleOpen}>
-        {!isLoading ? (
-          <div>
-            <ClientPagination totalPage={totalPage} currentPage={currentPage} />
-            <div className="grid grid-cols-2 gap-5 md:grid-cols-3 lg:grid-cols-4 pt-4">
+        <div>
+          <ClientPagination totalPage={totalPage} currentPage={currentPage} />
+          {!isLoading ? (
+            <div className="grid grid-cols-2 gap-5 pt-4 md:grid-cols-3 lg:grid-cols-4">
               {threads &&
                 threads.map((thread) => (
                   <ThreadCard2 key={thread.id} thread={thread} />
                 ))}
             </div>
-          </div>
-        ) : (
-          "Loading content..."
-        )}
+          ) : (
+            "Loading content..."
+          )}
+        </div>
         {slug && find && <ThreadPreview data={find} />}
       </Dialog>
       {slug && find && (
