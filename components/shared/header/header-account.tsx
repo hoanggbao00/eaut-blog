@@ -35,7 +35,7 @@ const HeaderAccount = ({ data }: { data: User & { role: Role } }) => {
         <DropdownMenuSeparator />
         {data.role !== "USER" && data.role !== "NONE" && (
           <DropdownMenuItem>
-            <Link href={`management`} className="flex w-full">
+            <Link href={`/management`} className="flex w-full">
               <LayoutDashboard className="mr-2" size={20} />
               Management
             </Link>

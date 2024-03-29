@@ -1,13 +1,12 @@
 "use client";
 
 import Links from "./links";
-import { signOut, useSession } from "next-auth/react";
+import { useSession } from "next-auth/react";
 import AuthDialog from "./auth-dialog";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { ModeToggle } from "@/components/ui/theme-toggle";
 import { Dialog } from "@/components/ui/dialog";
-import { Button } from "@/components/ui/button";
 import HeaderLogo from "./header-logo";
 import HeaderAccount from "./header-account";
 

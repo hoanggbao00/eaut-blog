@@ -15,6 +15,7 @@ export function formatDescription(html: string, slice?: number) {
 }
 
 export function formatContent(value: string) {
+  if (!value) return "<div></div>";
   const json = JSON.parse(value);
   return generateHTML(json, editorExtension);
 }

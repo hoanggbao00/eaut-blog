@@ -53,12 +53,12 @@ const BlogPage = async ({ searchParams }: Props) => {
     },
   );
   const { total, data } = await res.json();
-  const totalPage = Math.floor(total / 6) + 1;
+  const totalPage = Math.ceil(total / 6);
 
   return (
-    <div className="container flex flex-col gap-5 pb-3 pt-2">
+    <div className="sm:container flex flex-col gap-5 pb-3 pt-2">
       {catData && (
-        <div className="-mx-5 flex flex-wrap items-center gap-2 gap-y-4 pb-2 md:mx-0 md:hidden">
+        <div className="sm:-mx-5 flex flex-wrap items-center gap-2 gap-y-4 pb-2 md:mx-0 md:hidden">
           <Link href={"../"} className="font-semibold text-primary underline">
             Home /
           </Link>

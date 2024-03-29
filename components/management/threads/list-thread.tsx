@@ -30,7 +30,7 @@ const ListThread = ({
   );
 
   const threads = data && data.data;
-  const totalPage = (data && Math.floor(data.total / 12) + 1) || 1;
+  const totalPage = data && Math.ceil(data.total / 12) || 1;
   const [open, setOpen] = useState<boolean>(!!slug);
   const router = useRouter();
   const pathname = usePathname();

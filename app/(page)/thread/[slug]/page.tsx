@@ -41,13 +41,21 @@ const SingleThread = async ({ params }: { params: { slug: string } }) => {
   const html = formatContent(data.content);
 
   return (
-    data && (
+    data &&
+    data.user && (
       <article className="pb-6 sm:container">
         <Card className="bg-background">
-          <div className="flex items-center gap-1 py-3 pl-6 ">
-            <Link href={"/"} className="underline text-primary">Home</Link>
+          <div className="flex items-center gap-1 text-wrap py-3 pl-6">
+            <Link href={"/"} className="text-primary underline">
+              Home
+            </Link>
             {" / "}
-            <CategoryTag data={data.cat} />
+            <Link
+              href={`/blog?cat=${data.catSlug}`}
+              className="text-nowrap text-primary underline"
+            >
+              {data.cat?.title}
+            </Link>
             {" / "}
             <p> {data.title}</p>
           </div>
@@ -59,7 +67,7 @@ const SingleThread = async ({ params }: { params: { slug: string } }) => {
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-3">
                   <Avatar>
-                    <AvatarImage src={data.user.image} />
+                    <AvatarImage src={data.user?.image} />
                     <AvatarFallback>CN</AvatarFallback>
                   </Avatar>
                   <div className="">

@@ -24,7 +24,7 @@ const HomePage = async ({
   });
 
   const { total, data } = await res.json();
-  const totalPage = Math.floor(total / 6) + 1;
+  const totalPage = Math.ceil(total / 6);
 
   return (
     <div className="flex flex-col gap-y-10 px-3 sm:container">
@@ -32,7 +32,7 @@ const HomePage = async ({
         <HomeStatus />
       </Suspense>
       <section className="flex flex-col gap-5 md:flex-row">
-        {data && <FeaturedThread data={data[0]} />}
+        {data[0] && <FeaturedThread data={data[0]} />}
         <Suspense fallback={"loading"}>
           <NotificationSection />
         </Suspense>

@@ -28,14 +28,14 @@ const ClientPagination = ({
       <Pagination>
         <PaginationContent>
           {currentPage !== 1 && (
-            <PaginationItem>
+            <PaginationItem className="cursor-pointer">
               <PaginationPrevious
                 onClick={() => handlePageChange(currentPage - 1)}
               />
             </PaginationItem>
           )}
           {Array.from(Array(totalPage), (e, page) => (
-            <PaginationItem key={page}>
+            <PaginationItem key={page} className="cursor-pointer">
               <PaginationLink
                 onClick={() => handlePageChange(page + 1)}
                 isActive={currentPage === page + 1}
@@ -45,7 +45,7 @@ const ClientPagination = ({
             </PaginationItem>
           ))}
           {currentPage !== totalPage && (
-            <PaginationItem>
+            <PaginationItem className="cursor-pointer">
               <PaginationNext
                 onClick={() => handlePageChange(currentPage + 1)}
               />
