@@ -20,15 +20,15 @@ import { RotateCcw, X } from "lucide-react";
 
 const NotificationView = ({
   data,
-  edit,
   id,
   setOpen,
 }: {
   data: Notification;
   id?: string;
-  edit: boolean;
   setOpen: (e: boolean) => void;
 }) => {
+  const [edit, setEdit] = useState(false)
+  
   const [title, setTitle] = useState(data.title);
   const [startDate, setStartDate] = useState<Date | undefined>(
     new Date(data.startFrom),
@@ -43,7 +43,7 @@ const NotificationView = ({
   }, [data]);
 
   const handleEdit = async () => {
-    if (!edit && id) return router.replace(`?id=${id}&edit=true`);
+    if(!edit) return setEdit(true)
 
     const editedContent = window.localStorage.getItem("notification__content");
     const body = {
@@ -56,9 +56,9 @@ const NotificationView = ({
     const res = await fetch(`/api/notification/${data.id}`, {
       method: "PUT",
       body: JSON.stringify(body),
-    })
-    if(res.status !== 200) return alert('Something went wrong')
-    alert('Edited Sucessfully')
+    });
+    if (res.status !== 200) return alert("Something went wrong");
+    alert("Edited Sucessfully");
 
     setOpen(false);
     router.replace(`?`);

@@ -11,12 +11,10 @@ const NotificationList = ({
   data,
   id,
   found,
-  edit,
 }: {
   data: Notification[];
   id?: string;
   found: Notification | undefined;
-  edit: boolean;
 }) => {
   const [open, setOpen] = useState(!!id);
   const router = useRouter();
@@ -70,7 +68,7 @@ const NotificationList = ({
           </div>
         </div>
       </div>
-      {id && found && <NotificationView data={found} id={id} edit={edit} setOpen={setOpen}/>}
+      {id && found && <NotificationView data={found} id={id} setOpen={setOpen}/>}
     </Dialog>
   );
 };

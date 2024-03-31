@@ -8,12 +8,9 @@ import { Notification } from "@/type";
 const NotificationsManagement = async ({
   searchParams,
 }: {
-  searchParams: { id: string, edit: string };
+  searchParams: { id: string };
 }) => {
   const notificationId = searchParams.id;
-  const edit = Boolean(searchParams.edit)
-  console.log(edit);
-  
 
   const notificationRes = await fetch(`${BASE_API_URL}/api/notification`, {
     cache: "no-store",
@@ -29,7 +26,7 @@ const NotificationsManagement = async ({
       <SectionCard>
         <NotificationForm />
         <Separator className="my-4" />
-        <NotificationList data={data} id={notificationId} found={found} edit={edit}/>
+        <NotificationList data={data} id={notificationId} found={found}/>
       </SectionCard>
     </>
   );
