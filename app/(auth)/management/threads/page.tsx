@@ -24,7 +24,7 @@ const AllThreadPage = async ({
       <RouteTitle text="My Thread" />
       <SectionCard>
         <div className="flex justify-between py-3 pr-1">
-          <h1 className="text-5xl font-bold">Filter go here</h1>
+          <h1 className="text-3xl font-bold">Filter go here...</h1>
           <Button asChild>
             <Link href={"editor?type=add"}>New Thread</Link>
           </Button>

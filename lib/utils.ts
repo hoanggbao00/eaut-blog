@@ -20,10 +20,10 @@ export function formatContent(value: string) {
   return generateHTML(json, editorExtension);
 }
 
-export function formatDate(date: string) {
+export function formatDate(date: string, showTime?: boolean) {
   const value = date.split("T");
-
-  return `${value[0]} ${value[1].slice(0, 5)}`;
+  const time = value[1].slice(0, 5)
+  return `${value[0]} ${showTime ? time : ''}`;
 }
 
 export function slugify(s: string) {

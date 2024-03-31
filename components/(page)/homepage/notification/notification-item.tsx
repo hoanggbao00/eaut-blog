@@ -1,23 +1,9 @@
 "use client";
 
-import {
-  DialogContent,
-  DialogHeader,
-  DialogTrigger,
-} from "@/components/ui/dialog";
+import { DialogTrigger } from "@/components/ui/dialog";
 import { useRouter } from "next/navigation";
-
-export interface Notification {
-  id: string;
-  title: string;
-  content: string;
-  startDate: string;
-  endDate: string;
-  isExpired: boolean;
-  isStarted: boolean;
-  createdAt: string;
-  userEmail: string;
-}
+import { Notification } from "@/type";
+import { formatDate } from "@/lib/utils";
 
 const NotificationItem = ({
   data,
@@ -43,11 +29,13 @@ const NotificationItem = ({
           <h1 className="line-clamp-2 font-semibold">{data.title}</h1>
           <div className="flex items-center justify-between text-xs">
             <span>
-              From: <b>{data.startDate}</b>
+                From: <b>{formatDate(data.startFrom.toString(), false)}</b>
             </span>
-            <span>
-              Expired in: <b>{data.endDate}</b>
-            </span>
+            {data.endTo && (
+              <span>
+                Expired in: <b>{formatDate(data.endTo.toString(), false)}</b>
+              </span>
+            )}
           </div>
         </div>
       </div>

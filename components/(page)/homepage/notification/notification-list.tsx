@@ -5,102 +5,126 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import NotificationItem from "./notification-item";
+import { BASE_API_URL } from "@/lib/constants";
+import { Notification } from "@/type";
+import { formatDate } from "@/lib/utils";
 
-const notificationData = [
-  {
-    id: "1",
-    title: "Hello World 1",
-    content: "Hello World 1",
-    startDate: "2021-01-01",
-    endDate: "2022-04-01",
-    isExpired: false,
-    isStarted: true,
-    createdAt: "2021-01-01",
-    userEmail: "kaitou.kurosaki@gmail.com",
-  },
-  {
-    id: "2",
-    title: "Hello World 2",
-    content: "Hello World 2",
-    startDate: "2021-01-01",
-    endDate: "2022-02-01",
-    isExpired: true,
-    isStarted: true,
-    createdAt: "2021-01-01",
-    userEmail: "kaitou.kurosaki@gmail.com",
-  },
-  {
-    id: "3",
-    title: "Hello World 3",
-    content: "Hello World 3",
-    startDate: "2021-04-01",
-    endDate: "2022-05-01",
-    isExpired: false,
-    isStarted: false,
-    createdAt: "2021-01-01",
-    userEmail: "kaitou.kurosaki@gmail.com",
-  },
-  {
-    id: "4",
-    title: "Hello World 4",
-    content: "Hello World 4",
-    startDate: "2021-02-01",
-    endDate: "2022-04-01",
-    isExpired: false,
-    isStarted: true,
-    createdAt: "2021-01-01",
-    userEmail: "kaitou.kurosaki@gmail.com",
-  },
-  {
-    id: "5",
-    title: "Hello World 5",
-    content: "Hello World 5",
-    startDate: "2021-03-01",
-    endDate: "2022-04-01",
-    isExpired: false,
-    isStarted: true,
-    createdAt: "2021-01-01",
-    userEmail: "kaitou.kurosaki@gmail.com",
-  },
-  {
-    id: "6",
-    title: "Hello World 6",
-    content: "Hello World 6",
-    startDate: "2021-03-01",
-    endDate: "2022-04-01",
-    isExpired: false,
-    isStarted: true,
-    createdAt: "2021-01-01",
-    userEmail: "kaitou.kurosaki@gmail.com",
-  },
-];
+// const notificationData = [
+//   {
+//     id: "1",
+//     title: "Hello World 1",
+//     content: "Hello World 1",
+//     startDate: "2021-01-01",
+//     endDate: "2022-04-01",
+//     isExpired: false,
+//     isStarted: true,
+//     createdAt: "2021-01-01",
+//     userEmail: "kaitou.kurosaki@gmail.com",
+//   },
+//   {
+//     id: "2",
+//     title: "Hello World 2",
+//     content: "Hello World 2",
+//     startDate: "2021-01-01",
+//     endDate: "2022-02-01",
+//     isExpired: true,
+//     isStarted: true,
+//     createdAt: "2021-01-01",
+//     userEmail: "kaitou.kurosaki@gmail.com",
+//   },
+//   {
+//     id: "3",
+//     title: "Hello World 3",
+//     content: "Hello World 3",
+//     startDate: "2021-04-01",
+//     endDate: "2022-05-01",
+//     isExpired: false,
+//     isStarted: false,
+//     createdAt: "2021-01-01",
+//     userEmail: "kaitou.kurosaki@gmail.com",
+//   },
+//   {
+//     id: "4",
+//     title: "Hello World 4",
+//     content: "Hello World 4",
+//     startDate: "2021-02-01",
+//     endDate: "2022-04-01",
+//     isExpired: false,
+//     isStarted: true,
+//     createdAt: "2021-01-01",
+//     userEmail: "kaitou.kurosaki@gmail.com",
+//   },
+//   {
+//     id: "5",
+//     title: "Hello World 5",
+//     content: "Hello World 5",
+//     startDate: "2021-03-01",
+//     endDate: "2022-04-01",
+//     isExpired: false,
+//     isStarted: true,
+//     createdAt: "2021-01-01",
+//     userEmail: "kaitou.kurosaki@gmail.com",
+//   },
+//   {
+//     id: "6",
+//     title: "Hello World 6",
+//     content: "Hello World 6",
+//     startDate: "2021-03-01",
+//     endDate: "2022-04-01",
+//     isExpired: false,
+//     isStarted: true,
+//     createdAt: "2021-01-01",
+//     userEmail: "kaitou.kurosaki@gmail.com",
+//   },
+// ];
 
-const NotificationList = ({ notificationId, handleOpenNotification }: { notificationId?: string, handleOpenNotification: any }) => {
-  const found = notificationData.find((item) => item.id === notificationId);
-
+const NotificationList = ({
+  data,
+  found,
+  handleOpenNotification,
+}: {
+  data: Notification[];
+  found: Notification | null | undefined;
+  handleOpenNotification: any;
+}) => {
   return (
-    <>
-      <div className="flex flex-1 flex-col gap-0">
-        {notificationData.map(
-          (item) =>
-            !item.isExpired &&
-            item.isStarted && <NotificationItem key={item.id} data={item} handleOpenNotification={handleOpenNotification}/>,
+    data && (
+      <>
+        <div className="flex flex-1 flex-col gap-0">
+          {data.map((item) => (
+            <NotificationItem
+              key={item.id}
+              data={item}
+              handleOpenNotification={handleOpenNotification}
+            />
+          ))}
+        </div>
+        {found && (
+          <DialogContent>
+            <DialogHeader>
+              <DialogTitle className="text-xl">{found.title}</DialogTitle>
+              <DialogDescription className="border-b-2 pb-1">
+                <p className="">
+                  <span>Start from: </span>
+                  <b>{formatDate(found.startFrom.toString())}</b>
+                </p>
+                {found.endTo && (
+                  <p className="text-xs text-red-400">
+                    <span>Expired in: </span>{" "}
+                    <b>{formatDate(found.endTo.toString())}</b>
+                  </p>
+                )}
+                <span className="text-xs">by {found.userEmail}</span>
+              </DialogDescription>
+            </DialogHeader>
+            <div
+              className="max-h-[60dvh] w-full overflow-auto"
+              dangerouslySetInnerHTML={{ __html: found.content }}
+            ></div>
+          </DialogContent>
         )}
-      </div>
-      {found && (
-        <DialogContent>
-          <DialogHeader>
-            <DialogTitle className="text-xl">{found.title}</DialogTitle>
-            <DialogDescription className="border-b-2 pb-1">
-              <span className="block">{found.startDate}</span>
-              <span className="text-xs text-red-400 block">Expired in: {found.endDate}</span>
-              <span className="text-xs">by {found.userEmail}</span>
-            </DialogDescription>
-          </DialogHeader>
-          <div className="max-h-[60dvh] w-full overflow-auto">{found.content}</div>
-        </DialogContent>
-      )}
-    </>
+      </>
+    )
   );
 };
 

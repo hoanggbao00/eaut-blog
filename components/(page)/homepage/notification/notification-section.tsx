@@ -10,22 +10,14 @@ import {
 import NotificationList from "./notification-list";
 import { Dialog } from "@/components/ui/dialog";
 import { useEffect, useState } from "react";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
+import { Notification } from "@/type";
 
-const NotificationSection = () => {
-  const searchParams = useSearchParams();
+const NotificationSection = ({ data, found, notificationId }: { data: Notification[], found: Notification | undefined, notificationId: string }) => {
   const pathname = usePathname();
   const router = useRouter();
 
-  const [notificationId, setNotificationId] = useState<string>("");
   const [open, setOpen] = useState(false);
-
-  useEffect(() => {
-    const id = searchParams.get("notificationId");
-    if (!id) return;
-    setNotificationId(id);
-    setOpen(true);
-  }, [searchParams]);
 
   const handleOpenNotification = () => {
     if (open) router.replace(pathname);
@@ -43,7 +35,11 @@ const NotificationSection = () => {
           <Button variant={"outline"}>See more</Button>
         </CardHeader>
         <CardContent className="p-3">
-          <NotificationList notificationId={notificationId} handleOpenNotification={handleOpenNotification}/>
+          <NotificationList
+            data={data}
+            found={found}
+            handleOpenNotification={handleOpenNotification}
+          />
         </CardContent>
       </Card>
     </Dialog>

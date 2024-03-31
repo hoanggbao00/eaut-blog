@@ -1,11 +1,21 @@
 import prisma from "@/lib/connect";
 
-export const getAll = async (isExpired?: boolean, isStarted?: boolean) => {
+export const getAll = async (
+  isExpired: boolean,
+  isStarted: boolean,
+  take?: number,
+  skip?: number,
+) => {
   const data = await prisma.notification.findMany({
     where: {
       ...(isExpired && { isExpired }),
       ...(isStarted && { isStarted }),
     },
+    orderBy: {
+      startFrom: "desc",
+    },
+    take: take || 5,
+    skip: skip || 0,
   });
   return data;
 };
@@ -50,7 +60,7 @@ export const editOne = async (id: string, body: EditOne) => {
     where: {
       id: id,
     },
-    data: { ...body },
+    data: { ...body, isModified: true },
   });
 
   return data;
