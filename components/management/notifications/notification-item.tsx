@@ -15,9 +15,9 @@ const NotificationItem = ({
 }) => {
   const router = useRouter();
   const color = {
-    waiting: "border-yellow-500 bg-yellow-300/50",
-    ongoing: "border-green-500 bg-green-300/50",
-    expired: "border-red-500 bg-red-300/50",
+    waiting: "border-yellow-500 !bg-yellow-300/50",
+    ongoing: "border-green-500 !bg-green-300/50",
+    expired: "border-red-500 !bg-red-300/50",
   };
 
   const handleOpen = () => {

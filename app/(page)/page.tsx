@@ -25,7 +25,7 @@ const HomePage = async ({
     },
   });
 
-  const notificationRes = await fetch(`${BASE_API_URL}/api/notification`, {
+  const notificationRes = await fetch(`${BASE_API_URL}/api/notification?take=5`, {
     next: {
       revalidate: 60,
     },

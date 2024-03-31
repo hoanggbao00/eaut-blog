@@ -20,11 +20,9 @@ import { RotateCcw, X } from "lucide-react";
 
 const NotificationView = ({
   data,
-  id,
   setOpen,
 }: {
   data: Notification;
-  id?: string;
   setOpen: (e: boolean) => void;
 }) => {
   const [edit, setEdit] = useState(false)

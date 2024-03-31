@@ -6,8 +6,10 @@ export const GET = async (req: NextRequest) => {
   const isStarted = Boolean(searchParams.get("isStarted")) || false;
   const isExpired = Boolean(searchParams.get("isExpired")) || false;
   
-  const take = Number(searchParams.get("take") || 5);
-  const skip = Number(searchParams.get("skip") || 0);
+  const take = Number(searchParams.get("take"));
+  const skip = Number(searchParams.get("skip"));
+  console.log(take);
+  
   
 
   try {

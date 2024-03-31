@@ -22,8 +22,8 @@ export const getAll = async (
     orderBy: {
       startFrom: "desc",
     },
-    take: take || 5,
-    skip: skip || 0,
+    ...(take && {take: take}),
+    ...(skip && {skip: skip}),
   });
   return data;
 };
