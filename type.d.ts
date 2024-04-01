@@ -95,4 +95,5 @@ export type Notification = {
   userEmail: string;
   user: User;
   createdAt?: Date;
+  isModified: boolean;
 };

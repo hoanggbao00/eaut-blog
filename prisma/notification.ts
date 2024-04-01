@@ -11,6 +11,14 @@ export const getAll = async (
       ...(isExpired && { isExpired }),
       ...(isStarted && { isStarted }),
     },
+    include: {
+      user: {
+        select: {
+          name: true,
+          id: true,
+        },
+      },
+    },
     orderBy: {
       startFrom: "desc",
     },

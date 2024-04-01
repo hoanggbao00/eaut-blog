@@ -1,3 +1,4 @@
+"use client";
 import {
   DialogContent,
   DialogDescription,
@@ -5,9 +6,9 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import NotificationItem from "./notification-item";
-import { BASE_API_URL } from "@/lib/constants";
 import { Notification } from "@/type";
-import { formatDate } from "@/lib/utils";
+import { formatContent, formatDate } from "@/lib/utils";
+import { useMemo } from "react";
 
 // const notificationData = [
 //   {
@@ -84,9 +85,13 @@ const NotificationList = ({
   handleOpenNotification,
 }: {
   data: Notification[];
-  found: Notification | null | undefined;
+  found: Notification | undefined;
   handleOpenNotification: any;
 }) => {
+  const content = useMemo(
+    () => (found ? formatContent(found.content) : ""),
+    [found],
+  );
   return (
     data && (
       <>
@@ -102,6 +107,9 @@ const NotificationList = ({
         {found && (
           <DialogContent>
             <DialogHeader>
+              {found.isModified && (
+                <span className="text-xs text-gray-400">(Modified)</span>
+              )}
               <DialogTitle className="text-xl">{found.title}</DialogTitle>
               <DialogDescription className="border-b-2 pb-1">
                 <p className="">
@@ -118,8 +126,8 @@ const NotificationList = ({
               </DialogDescription>
             </DialogHeader>
             <div
-              className="max-h-[60dvh] w-full overflow-auto"
-              dangerouslySetInnerHTML={{ __html: found.content }}
+              className="prose max-h-[60dvh] w-full overflow-auto dark:prose-invert"
+              dangerouslySetInnerHTML={{ __html: content }}
             ></div>
           </DialogContent>
         )}

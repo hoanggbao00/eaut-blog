@@ -29,7 +29,7 @@ const NotificationItem = ({
           <h1 className="line-clamp-2 font-semibold">{data.title}</h1>
           <div className="flex items-center justify-between text-xs">
             <span>
-                From: <b>{formatDate(data.startFrom.toString(), false)}</b>
+              From: <b>{formatDate(data.startFrom.toString(), false)}</b>
             </span>
             {data.endTo && (
               <span>
