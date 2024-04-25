@@ -45,12 +45,12 @@ const SearchBar = () => {
       {open && (
         <div className="fixed inset-0 bg-foreground/15">
           <div className="flex flex-col items-center justify-center gap-2 pt-[10vh] sm:pt-[20vh]">
-            <div className="flex w-2/3 items-center justify-end">
+            <div className="flex sm:w-2/3 w-[90%] items-center justify-end">
               <Button variant="outline" onClick={() => setOpen(false)}>
                 Close
               </Button>
             </div>
-            <div className="w-2/3">
+            <div className="sm:w-2/3 w-[90%]">
               <Input
                 type="text"
                 value={input}
@@ -62,18 +62,18 @@ const SearchBar = () => {
                 className="h-auto bg-background text-xl"
               />
             </div>
-            <div className="max-h-[50vh] w-2/3 space-y-2 rounded-md border bg-background p-2 overflow-auto">
+            <div className="max-h-[50vh] w-[90%] sm:w-2/3 space-y-2 rounded-md border bg-background p-2 overflow-auto">
               {!isLoading &&
                 searchData &&
                 searchData.map((t) => (
                   <div
                     key={t.id}
-                    className="dark:boder rounded-md p-2 shadow-md"
+                    className="dark:border rounded-md p-2 shadow-md"
                   >
                     <CategoryTag data={t.cat} />
                     <Link
                       className="block font-medium hover:underline"
-                      href={t.slug}
+                      href={`/thread/${t.slug}`}
                     >
                       {t.title}
                     </Link>
