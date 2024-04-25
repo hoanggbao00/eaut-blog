@@ -31,6 +31,15 @@ const HomePage = async ({
       revalidate: 60,
     },
   });
+
+  const popularRes = await fetch(`${BASE_API_URL}/api/thread/popular`, {
+    method: "GET",
+    next: {
+      revalidate: 60,
+    },
+  });
+  const popularData = await popularRes.json()
+
   const notificationData:Notification[] = await notificationRes.json();
   const found = notificationData && notificationData.find(item => item.id === notificationId)
 
@@ -43,7 +52,6 @@ const HomePage = async ({
       CompareDate(new Date(item.startFrom), getISOLocalString()) &&
       !(item.endTo && CompareDate(new Date(item.endTo), getISOLocalString())),
   );
-
 
   const { total, data } = await res.json();
   const totalPage = Math.ceil(total / 6);
@@ -66,7 +74,7 @@ const HomePage = async ({
             totalPage={totalPage}
           />
           <Suspense>
-            <PopularThreads data={data} />
+            <PopularThreads data={popularData} />
           </Suspense>
         </>
       )}

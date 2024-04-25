@@ -48,7 +48,7 @@ export const getAll = async (
     orderBy: {
       createdAt: "desc",
     },
-  }
+  };
 
   const [total, data] = await prisma.$transaction([
     prisma.thread.count({
@@ -58,12 +58,44 @@ export const getAll = async (
       },
     }),
     prisma.thread.findMany(query),
-  ])
+  ]);
 
   return {
     total: total,
     data: data,
   };
+};
+
+export const getPopular = async () => {
+  const data = await prisma.thread.findMany({
+    include: {
+      cat: {
+        select: {
+          title: true,
+          color: true,
+          slug: true,
+        },
+      },
+      user: {
+        select: {
+          email: true,
+          name: true,
+          image: true,
+        },
+      },
+      _count: {
+        select: {
+          votes: true,
+        },
+      },
+    },
+    take: 7,
+    orderBy: {
+      views: "desc",
+    },
+  });
+
+  return data
 };
 
 export const getOne = async (slug: string) => {
@@ -85,14 +117,14 @@ export const getOne = async (slug: string) => {
           title: true,
           color: true,
           slug: true,
-        }
+        },
       },
       _count: {
         select: {
           comments: true,
         },
       },
-      votes: true
+      votes: true,
     },
   });
   return data;
@@ -177,7 +209,6 @@ export const voteThread = async (
   slug: string,
   userEmail: string,
 ) => {
-
   const found = await prisma.threadVote.deleteMany({
     where: {
       type: type,
@@ -185,7 +216,7 @@ export const voteThread = async (
       userEmail: userEmail,
     },
   });
-  
+
   if (found.count !== 0) return found;
 
   const data = await prisma.$transaction([

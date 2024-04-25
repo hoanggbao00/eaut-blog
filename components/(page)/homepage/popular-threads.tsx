@@ -4,13 +4,10 @@ import {
   Carousel,
   CarouselContent,
   CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
 } from "@/components/ui/carousel";
 import Title from "@/components/ui/title";
 import { Thread } from "@/type";
 import ThreadCard from "@/components/shared/thread-card";
-import { Suspense } from "react";
 
 const PopularThreads = ({ data }: { data: Thread[] }) => {
   return (
