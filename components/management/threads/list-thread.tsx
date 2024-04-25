@@ -34,7 +34,7 @@ const ListThread = ({
   const handleOpen = () => {
     if (slug)
       router.replace(
-        `${pathname}?perPage=10&page=${currentPage}${user?.email ? "&userEmail=" + user.email : ""}`,
+        `${pathname}?page=${currentPage}`,
       );
 
     setOpen(!open);

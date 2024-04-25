@@ -9,6 +9,7 @@ import { ModeToggle } from "@/components/ui/theme-toggle";
 import { Dialog } from "@/components/ui/dialog";
 import HeaderLogo from "./header-logo";
 import HeaderAccount from "./header-account";
+import SearchBar from "./search-bar";
 
 const Header = () => {
   const session = useSession();
@@ -42,6 +43,7 @@ const Header = () => {
         <nav className="relative flex flex-1 justify-between ">
           <HeaderLogo />
           <div className="flex items-center gap-4">
+            <SearchBar />
             <Links />
             <>
               {session.data ? (
