@@ -7,6 +7,7 @@ import { DialogTrigger } from "@/components/ui/dialog";
 import { Card, CardContent } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import Author from "@/components/shared/author";
+import CategoryTag from "@/components/shared/category-tag";
 
 const ThreadCard2 = ({
   thread,
@@ -29,6 +30,7 @@ const ThreadCard2 = ({
           className="flex w-full flex-col gap-2 p-3"
           onClick={handleClick}
         >
+          <CategoryTag data={thread.cat} className="w-fit"/>
           <div className="relative aspect-video overflow-hidden rounded-lg shadow-md">
             <Image
               src={
@@ -53,7 +55,7 @@ const ThreadCard2 = ({
             <span className="text-xs text-gray-500">Published by</span>
             <Author user={thread.user} />
             <span className="text-xs text-gray-500">
-              at {formatDate(thread.createdAt)}
+              {/* at {formatDate(thread.createdAt)} */}
             </span>
           </div>
         </CardContent>

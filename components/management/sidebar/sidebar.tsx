@@ -49,12 +49,6 @@ const routes = [
     text: "Users",
     notAllow: ["WRITER", "USER"],
   },
-  {
-    icon: <Layers2 />,
-    path: "/management/categories",
-    text: "Categories",
-    notAllow: ["WRITER", "MODERATOR", "USER"],
-  },
 ];
 
 const Sidebar = () => {

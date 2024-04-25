@@ -15,11 +15,9 @@ import { usePathname, useRouter } from "next/navigation";
 // TODO: Handle alert delete when success
 const ConfirmDelete = ({
   slug,
-  mutate,
   setOpen,
 }: {
   slug: string;
-  mutate: () => void;
   setOpen: (e: boolean) => void;
 }) => {
   const router = useRouter();
@@ -34,7 +32,7 @@ const ConfirmDelete = ({
     alert("Delete Successfully");
     setOpen(false);
     router.replace(pathname);
-    mutate();
+    router.refresh()
   };
 
   return (
