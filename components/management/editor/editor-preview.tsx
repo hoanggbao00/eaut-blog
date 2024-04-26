@@ -13,25 +13,7 @@ import { LoaderCircle } from "lucide-react";
 import { NextResponse } from "next/server";
 import Image from "next/image";
 import { useSession } from "next-auth/react";
-
-const uploadImage = async (
-  file?: File,
-  filename?: string,
-): Promise<NextResponse> => {
-  if (!file)
-    return NextResponse.json({ status: 404, message: "no file available" });
-  const res = await fetch(`/api/upload?filename=${filename}`, {
-    method: "POST",
-    headers: {
-      "content-type":
-        (file == null ? void 0 : file.type) || "application/octet-stream",
-      "x-vercel-filename": (file == null ? void 0 : file.name) || "image.png",
-    },
-    body: file,
-  });
-
-  return res.json();
-};
+import { compressImage, uploadImage } from "@/lib/utils";
 
 const EditorPreview = ({
   type,
@@ -114,13 +96,11 @@ const EditorPreview = ({
     setIsThumbnailLoading(true);
     const check = await checkThumbnail();
 
-    if (check) {
-      const res = await uploadImage(media);
-      if (res.status === 404) {
-        alert("failed to upload image");
-      }
+    if (check && media) {
+      const resizedImage = await compressImage(media, {quality: 0.8, type: "image/jpeg"})
+      const res = await uploadImage(resizedImage);
 
-      if (res?.url) thread = { ...thread, thumbnail: res.url };
+      if (res) thread = { ...thread, thumbnail: res };
     }
     setIsThumbnailLoading(false);
     //* Done check thumbnail

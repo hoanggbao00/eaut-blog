@@ -2,6 +2,8 @@ import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
 import { editorExtension } from "./default-extension";
 import { generateHTML } from "@tiptap/html";
+import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
+import { storage } from "./firebaseConfig";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -81,3 +83,41 @@ export function CompareDate(fromDate: Date, currentDate:Date) {
   //Note: 10 is month i.e. Oct
   return (currentDate > fromDate)
 }
+
+
+export const compressImage = async (
+  file: File,
+  { quality = 1, type = file.type },
+) => {
+  // Get as image data
+  const imageBitmap = await createImageBitmap(file);
+
+  // Draw to canvas
+  const canvas = document.createElement("canvas");
+  canvas.width = imageBitmap.width;
+  canvas.height = imageBitmap.height;
+  const ctx = canvas.getContext("2d");
+  ctx!.drawImage(imageBitmap, 0, 0);
+
+  // Turn into Blob
+  const blob = await new Promise<any>((resolve) =>
+    canvas.toBlob(resolve, type, quality),
+  );
+  // Turn Blob into File
+  return new File([blob], file.name, {
+    type: blob.type,
+  });
+};
+
+export const uploadImage = async (item: File) => {
+  const { name } = item;
+  const imageRef = ref(storage, name);
+
+  try {
+    const snapshot = await uploadBytes(imageRef, item);
+    const imageUrl = await getDownloadURL(snapshot.ref);
+    return imageUrl;
+  } catch (error) {
+    console.error(error);
+  }
+};
