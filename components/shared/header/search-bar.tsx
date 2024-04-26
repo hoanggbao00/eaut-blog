@@ -45,30 +45,30 @@ const SearchBar = () => {
       {open && (
         <div className="fixed inset-0 bg-foreground/15">
           <div className="flex flex-col items-center justify-center gap-2 pt-[10vh] sm:pt-[20vh]">
-            <div className="flex sm:w-2/3 w-[90%] items-center justify-end">
+            <div className="flex w-[90%] items-center justify-end sm:w-2/3">
               <Button variant="outline" onClick={() => setOpen(false)}>
                 Close
               </Button>
             </div>
-            <div className="sm:w-2/3 w-[90%]">
+            <div className="w-[90%] sm:w-2/3">
               <Input
                 type="text"
                 value={input}
                 onChange={(e) => {
                   setInput(e.target.value);
-                  setData([]);
+                  if (!e.target.value) setData([]);
                 }}
                 placeholder="Search threads..."
                 className="h-auto bg-background text-xl"
               />
             </div>
-            <div className="max-h-[50vh] w-[90%] sm:w-2/3 space-y-2 rounded-md border bg-background p-2 overflow-auto">
+            <div className="max-h-[50vh] w-[90%] space-y-2 overflow-auto rounded-md border bg-background p-2 sm:w-2/3">
               {!isLoading &&
                 searchData &&
                 searchData.map((t) => (
                   <div
                     key={t.id}
-                    className="dark:border rounded-md p-2 shadow-md"
+                    className="rounded-md p-2 shadow-md dark:border"
                   >
                     <CategoryTag data={t.cat} />
                     <Link
@@ -82,14 +82,16 @@ const SearchBar = () => {
               {isLoading && (
                 <p>
                   <Loader2 className="mr-2 inline-block size-5 animate-spin" />
-                  Searching "{input}"...
+                  Searching <b>{input}</b>...
                 </p>
               )}
-              {(!isLoading && input && (!searchData || searchData.length === 0)) && (
-                <p>
-                  There is no content match <b>"{input}"</b>
-                </p>
-              )}
+              {!isLoading &&
+                input &&
+                (!searchData || searchData.length === 0) && (
+                  <p>
+                    There is no content match <b>{input}</b>
+                  </p>
+                )}
             </div>
           </div>
         </div>

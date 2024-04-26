@@ -26,11 +26,14 @@ const HomePage = async ({
     },
   });
 
-  const notificationRes = await fetch(`${BASE_API_URL}/api/notification?take=5`, {
-    next: {
-      revalidate: 60,
+  const notificationRes = await fetch(
+    `${BASE_API_URL}/api/notification?take=5`,
+    {
+      next: {
+        revalidate: 60,
+      },
     },
-  });
+  );
 
   const popularRes = await fetch(`${BASE_API_URL}/api/thread/popular`, {
     method: "GET",
@@ -38,10 +41,12 @@ const HomePage = async ({
       revalidate: 60,
     },
   });
-  const popularData = await popularRes.json()
+  const popularData = await popularRes.json();
 
-  const notificationData:Notification[] = await notificationRes.json();
-  const found = notificationData && notificationData.find(item => item.id === notificationId)
+  const notificationData: Notification[] = await notificationRes.json();
+  const found =
+    notificationData &&
+    notificationData.find((item) => item.id === notificationId);
 
   const waitingData = notificationData.filter(
     (item) => !CompareDate(new Date(item.startFrom), getISOLocalString()),
@@ -63,7 +68,11 @@ const HomePage = async ({
       </Suspense>
       <section className="flex flex-col gap-5 md:flex-row">
         {data[0] && <FeaturedThread data={data[0]} />}
-        <NotificationSection data={[...waitingData, ...onGoingData]} found={found} notificationId={notificationId} />
+        <NotificationSection
+          data={[...waitingData, ...onGoingData]}
+          found={found}
+          notificationId={notificationId}
+        />
       </section>
       <CategorySection />
       {data && (
